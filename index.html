@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de usuários</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <span class="mark" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" width="32" height="32">
+                        <rect x="4" y="6" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="14" r="2.5" fill="currentColor"/>
+                        <path d="M8.5 22c.6-2.2 2-3.4 3.5-3.4s2.9 1.2 3.5 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        <path d="M18 13h6M18 17h6M18 21h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <div>
+                    <p class="eyebrow">Registros locais</p>
+                    <h1>Cadastro de usuários</h1>
+                </div>
+            </div>
+            <p class="topbar-note" id="storageNote">Os dados ficam salvos neste navegador.</p>
+        </header>
+
+        <main class="layout">
+            <section class="card" aria-labelledby="formTitle">
+                <div class="card-heading">
+                    <h2 id="formTitle">Novo usuário</h2>
+                    <p id="formHint">Preencha a identificação para incluir na lista.</p>
+                </div>
+
+                <form id="userForm" novalidate>
+                    <div class="field">
+                        <label for="fullName">Nome completo</label>
+                        <input type="text" id="fullName" name="fullName" maxlength="50" autocomplete="name" placeholder="Maria da Silva" required>
+                        <p class="error" id="fullNameError" role="alert"></p>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="cpf">CPF</label>
+                            <input type="text" id="cpf" name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" required>
+                            <p class="error" id="cpfError" role="alert"></p>
+                        </div>
+                        <div class="field">
+                            <label for="cns">CNS</label>
+                            <input type="text" id="cns" name="cns" inputmode="numeric" autocomplete="off" placeholder="000 0000 0000 0000" maxlength="18" required>
+                            <p class="error" id="cnsError" role="alert"></p>
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" maxlength="100" autocomplete="email" placeholder="maria@email.com" required>
+                            <p class="error" id="emailError" role="alert"></p>
+                        </div>
+                        <div class="field">
+                            <label for="birthDate">Data de nascimento</label>
+                            <input type="date" id="birthDate" name="birthDate" required>
+                            <p class="error" id="birthDateError" role="alert"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submitButton">Cadastrar</button>
+                        <button type="button" class="btn btn-ghost" id="cancelButton" hidden>Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="card list-card" aria-labelledby="listTitle">
+                <div class="list-toolbar">
+                    <div>
+                        <h2 id="listTitle">Usuários</h2>
+                        <p class="count" id="userCount">0 usuários</p>
+                    </div>
+                    <label class="search">
+                        <span class="visually-hidden">Buscar usuários</span>
+                        <input type="search" id="searchInput" placeholder="Buscar por nome, CPF, CNS ou e-mail" autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="user-list" id="userList"></div>
+
+                <p class="empty" id="emptyState">Nenhum usuário cadastrado. Use o formulário para incluir o primeiro.</p>
+
+                <div class="pagination">
+                    <button type="button" class="btn btn-ghost" id="previousPageButton">Anterior</button>
+                    <span id="currentPageLabel">Página 1 de 1</span>
+                    <button type="button" class="btn btn-ghost" id="nextPageButton">Próxima</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <dialog id="confirmDialog" aria-labelledby="confirmTitle">
+        <form method="dialog">
+            <h3 id="confirmTitle">Excluir usuário</h3>
+            <p id="confirmMessage"></p>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-ghost" value="cancel">Cancelar</button>
+                <button type="submit" class="btn btn-danger" value="confirm">Excluir</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+</body>
+</html>
